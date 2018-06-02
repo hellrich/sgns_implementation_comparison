@@ -1,0 +1,2 @@
+# sgns_implementation_comparison
+Comparing SGNS word embedding implementations
