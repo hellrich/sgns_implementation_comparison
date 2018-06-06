@@ -32,12 +32,9 @@ SGNS2TEXT_OPTS=${PARAM_CHECK[4]}
 
 # Create collection of word-context pairs
 mkdir -p $OUTPUT_DIR
-echo "---------- $RND --------"
 if [[ "$RND" == "1" ]] ; then
-	echo "RANDOM"
 	python hyperwords_corpus2pairs.py --random $CORPUS2PAIRS_OPTS $CORPUS > $OUTPUT_DIR/pairs
 else
-	echo "DET"
 	python hyperwords_corpus2pairs.py $CORPUS2PAIRS_OPTS $CORPUS > $OUTPUT_DIR/pairs
 fi
 $WORKING_DIR/hyperwords/scripts/pairs2counts.sh $OUTPUT_DIR/pairs > $OUTPUT_DIR/counts
