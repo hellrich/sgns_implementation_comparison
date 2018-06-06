@@ -1,3 +1,9 @@
+# Modified from original hyperwords to allow additional parameters
+# see https://bitbucket.org/omerlevy/hyperwords
+# as well as the paper
+# "Improving Distributional Similarity with Lessons Learned from Word Embeddings"
+# Omer Levy, Yoav Goldberg, and Ido Dagan. TACL 2015.
+
 from collections import Counter
 from math import sqrt
 from random import Random

@@ -1,3 +1,9 @@
+# Modified from original hyperwords to allow additional parameters
+# see https://bitbucket.org/omerlevy/hyperwords
+# as well as the paper
+# "Improving Distributional Similarity with Lessons Learned from Word Embeddings"
+# Omer Levy, Yoav Goldberg, and Ido Dagan. TACL 2015.
+
 # Parse input params
 PARAM_CHECK=$(python $WORKING_DIR/hyperwords/hyperwords/corpus2sgns_params.py $@ 2>&1)
 if [[ $PARAM_CHECK == *Usage:* ]]; then
