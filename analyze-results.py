@@ -1,3 +1,5 @@
+# Assumes you are in one of the two conda environments
+
 from __future__ import print_function
 import numpy as np
 import sys
