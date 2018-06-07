@@ -5,6 +5,6 @@ for what in hyper1 hyper2 word2vec gensim1 gensim2 gensim3
 do 
         for i in {0..9}
         do
-                sbatch -o $WORKING_DIR/slurmout/${what}_$i train-sgns-slurm.sh $what $i
+                sbatch -o $WORKING_DIR/slurmout/${what}_$i train-slurm.sh $what $i
         done
 done

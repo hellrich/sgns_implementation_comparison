@@ -1,6 +1,16 @@
 WORKING_DIR=/home/hellrich/tmp/sgns_implementation_comparison
 mkdir -p $WORKING_DIR
 
+function get_simlex {
+	mkdir -p $WORKING_DIR/tmp_simlex
+	cd $WORKING_DIR/tmp_simlex
+	wget https://www.cl.cam.ac.uk/~fh295/SimLex-999.zip
+	unzip SimLex-999.zip 
+	cut -f1,2,4 SimLex-999/SimLex-999.txt | tail -n +2 > $WORKING_DIR/hyperwords/testsets/ws/simlex999.txt
+	cd ..
+	rm -rf $WORKING_DIR/tmp_simlex
+}
+
 function prepare_corpus {
 	mkdir -p $WORKING_DIR/tmp
 	cd $WORKING_DIR/tmp
@@ -26,8 +36,19 @@ function prepare_tools {
 
 	(cd $WORKING_DIR && wget https://bitbucket.org/omerlevy/hyperwords/get/688addd64ca2.zip && unzip 688addd64ca2.zip && mv omerlevy-hyperwords-688addd64ca2 hyperwords && cd hyperwords && bash scripts/install_word2vecf.sh && chmod +x $WORKING_DIR/hyperwords/scripts/* && cd word2vecf && make)
 
+	get_simlex
 	echo "tools ready"
 }
 
-#prepare_corpus
-#prepare_tools
+#needs both tools and corpus!
+function prepare_most_frequent {
+	source ~/.bashrc
+	source activate sgns_impl_hyper
+	python most_frequent_words.py 1000 $WORKING_DIR/corpus > $WORKING_DIR/1000_most_frequent_words
+
+	echo "most frequent word list ready"
+}
+
+prepare_corpus
+prepare_tools
+prepare_most_frequent
