@@ -1,9 +1,10 @@
 #!/bin/bash
 #SBATCH -J sgns_impl_comparison
 #SBATCH --mem 10g
-#SBATCH --cpus-per-task 20
+#SBATCH --cpus-per-task 10
 
 WORKING_DIR=/home/hellrich/tmp/sgns_implementation_comparison
+WORKING_TMP=/data/data_hellrich/tmp
 
 WIN=5
 MIN=100
@@ -24,6 +25,7 @@ function do_hyper {
                 export WORKING_DIR=$WORKING_DIR
                 export ITER=$ITER
                 export RND=0
+                export TMP=$WORKING_TMP
                 bash hyperwords_corpus2sgns.sh $IN $OUT --dyn --del --thr $MIN --win $WIN --sub $DOWNSAMPLE --cds 0.75 --dim $DIM --neg 5 --cpu $THREADS
         )
         echo "done hyper default $id"
@@ -40,6 +42,7 @@ function do_hyper_random {
                 export WORKING_DIR=$WORKING_DIR
                 export ITER=$ITER
                 export RND=1
+                export TMP=$WORKING_TMP
                 bash hyperwords_corpus2sgns.sh $IN $OUT --dyn --del --thr $MIN --win $WIN --sub $DOWNSAMPLE --cds 0.75 --dim $DIM --neg 5 --cpu $THREADS
         )
         echo "done hyper random $id"

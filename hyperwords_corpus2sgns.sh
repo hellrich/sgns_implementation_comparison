@@ -37,7 +37,7 @@ if [[ "$RND" == "1" ]] ; then
 else
 	python hyperwords_corpus2pairs.py $CORPUS2PAIRS_OPTS $CORPUS > $OUTPUT_DIR/pairs
 fi
-sort -T $OUTPUT_DIR $OUTPUT_DIR/pairs | uniq -c > $OUTPUT_DIR/counts
+sort -T $TMP $OUTPUT_DIR/pairs | uniq -c > $OUTPUT_DIR/counts
 python $WORKING_DIR/hyperwords/hyperwords/counts2vocab.py $OUTPUT_DIR/counts
 
 
