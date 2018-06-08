@@ -25,7 +25,7 @@ function do_hyper {
                 export WORKING_DIR=$WORKING_DIR
                 export ITER=$ITER
                 export RND=0
-                export TMP=$WORKING_TMP
+                export TMP=$WORKING_TMP/models_hyper_default/$id
                 bash hyperwords_corpus2sgns.sh $IN $OUT --dyn --del --thr $MIN --win $WIN --sub $DOWNSAMPLE --cds 0.75 --dim $DIM --neg 5 --cpu $THREADS
         )
         echo "done hyper default $id"
@@ -42,7 +42,7 @@ function do_hyper_random {
                 export WORKING_DIR=$WORKING_DIR
                 export ITER=$ITER
                 export RND=1
-                export TMP=$WORKING_TMP
+                export TMP=$WORKING_TMP/models_hyper_random/$id
                 bash hyperwords_corpus2sgns.sh $IN $OUT --dyn --del --thr $MIN --win $WIN --sub $DOWNSAMPLE --cds 0.75 --dim $DIM --neg 5 --cpu $THREADS
         )
         echo "done hyper random $id"

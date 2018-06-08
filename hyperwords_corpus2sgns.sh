@@ -32,22 +32,23 @@ SGNS2TEXT_OPTS=${PARAM_CHECK[4]}
 
 # Create collection of word-context pairs
 mkdir -p $OUTPUT_DIR
+mkdir -p $TMP
 if [[ "$RND" == "1" ]] ; then
-	python hyperwords_corpus2pairs.py --random $CORPUS2PAIRS_OPTS $CORPUS > $OUTPUT_DIR/pairs
+	python hyperwords_corpus2pairs.py --random $CORPUS2PAIRS_OPTS $CORPUS > $TMP/pairs
 else
-	python hyperwords_corpus2pairs.py $CORPUS2PAIRS_OPTS $CORPUS > $OUTPUT_DIR/pairs
+	python hyperwords_corpus2pairs.py $CORPUS2PAIRS_OPTS $CORPUS > $TMP/pairs
 fi
-sort -T $TMP $OUTPUT_DIR/pairs | uniq -c > $OUTPUT_DIR/counts
-python $WORKING_DIR/hyperwords/hyperwords/counts2vocab.py $OUTPUT_DIR/counts
+sort -T $TMP $TMP/pairs | uniq -c > $TMP/counts
+python $WORKING_DIR/hyperwords/hyperwords/counts2vocab.py $TMP/counts
 
 
 # Create embeddings with SGNS. Commands 2-5 are necessary for loading the vectors with embeddings.py
-$WORKING_DIR/hyperwords/word2vecf/word2vecf $WORD2VECF_OPTS -iters $ITER -train $OUTPUT_DIR/pairs -cvocab $OUTPUT_DIR/counts.contexts.vocab -wvocab $OUTPUT_DIR/counts.words.vocab -dumpcv $OUTPUT_DIR/sgns.contexts -output $OUTPUT_DIR/sgns.words
-python $WORKING_DIR/hyperwords/hyperwords/text2numpy.py $OUTPUT_DIR/sgns.words
-python $WORKING_DIR/hyperwords/hyperwords/text2numpy.py $OUTPUT_DIR/sgns.contexts
+$WORKING_DIR/hyperwords/word2vecf/word2vecf $WORD2VECF_OPTS -iters $ITER -train $TMP/pairs -cvocab $TMP/counts.contexts.vocab -wvocab $TMP/counts.words.vocab -dumpcv $TMP/sgns.contexts -output $TMP/sgns.words
+python $WORKING_DIR/hyperwords/hyperwords/text2numpy.py $TMP/sgns.words
+python $WORKING_DIR/hyperwords/hyperwords/text2numpy.py $TMP/sgns.contexts
 
 
 # Save the embeddings in the textual format 
-python $WORKING_DIR/hyperwords/hyperwords/sgns2text.py $SGNS2TEXT_OPTS $OUTPUT_DIR/sgns $OUTPUT_DIR/vec
-mv $OUTPUT_DIR/counts.words.vocab $OUTPUT_DIR/vocab
-rm $OUTPUT_DIR/sgns* $OUTPUT_DIR/counts* $OUTPUT_DIR/pairs
+python $WORKING_DIR/hyperwords/hyperwords/sgns2text.py $SGNS2TEXT_OPTS $TMP/sgns $OUTPUT_DIR/vec
+mv $TMP/counts.words.vocab $OUTPUT_DIR/vocab
+rm $TMP/*
