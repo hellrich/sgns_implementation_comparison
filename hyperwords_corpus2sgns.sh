@@ -42,7 +42,7 @@ python $WORKING_DIR/hyperwords/hyperwords/counts2vocab.py $OUTPUT_DIR/counts
 
 
 # Create embeddings with SGNS. Commands 2-5 are necessary for loading the vectors with embeddings.py
-$WORKING_DIR/hyperwords/word2vecf/word2vecf $WORD2VECF_OPTS -iter $ITER -train $OUTPUT_DIR/pairs -cvocab $OUTPUT_DIR/counts.contexts.vocab -wvocab $OUTPUT_DIR/counts.words.vocab -dumpcv $OUTPUT_DIR/sgns.contexts -output $OUTPUT_DIR/sgns.words
+$WORKING_DIR/hyperwords/word2vecf/word2vecf $WORD2VECF_OPTS -iters $ITER -train $OUTPUT_DIR/pairs -cvocab $OUTPUT_DIR/counts.contexts.vocab -wvocab $OUTPUT_DIR/counts.words.vocab -dumpcv $OUTPUT_DIR/sgns.contexts -output $OUTPUT_DIR/sgns.words
 python $WORKING_DIR/hyperwords/hyperwords/text2numpy.py $OUTPUT_DIR/sgns.words
 python $WORKING_DIR/hyperwords/hyperwords/text2numpy.py $OUTPUT_DIR/sgns.contexts
 
