@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -J sgns_impl_comparison
 #SBATCH --mem 10g
-#SBATCH --cpus-per-task 10
+#SBATCH --cpus-per-task 20
 
 WORKING_DIR=/home/hellrich/tmp/sgns_implementation_comparison
 
